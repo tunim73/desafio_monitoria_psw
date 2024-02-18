@@ -1,3 +1,5 @@
+import { NavLink } from "react-router-dom";
+
 const listCelular = [
   {
     id: 1,
@@ -25,9 +27,9 @@ const listCelular = [
 export const Home = () => {
   return (
     <div className="container mt-5">
-      <button type="button" className="btn btn-success mb-3">
+      <NavLink to="/create" type="button" className="btn btn-success mb-3">
         Novo Celular
-      </button>
+      </NavLink>
       <table className="table text-center table-bordered">
         <thead>
           <tr>
@@ -48,9 +50,13 @@ export const Home = () => {
                 <td>{item.capacidade_memoria_gb}</td>
                 <td>{item.data_lancamento}</td>
                 <td>
-                  <button type="button" className="btn btn-warning">
+                  <NavLink
+                    to={`/update/${item.id}`}
+                    type="button"
+                    className="btn btn-warning"
+                  >
                     Alterar
-                  </button>
+                  </NavLink>
                 </td>
                 <td>
                   <button type="button" className="btn btn-danger">
