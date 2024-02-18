@@ -1,30 +1,9 @@
 import { NavLink } from "react-router-dom";
-
-const listCelular = [
-  {
-    id: 1,
-    marca: "Samsung",
-    modelo: "Galaxy S21",
-    capacidade_memoria_gb: 256,
-    data_lancamento: "2021-01-29",
-  },
-  {
-    id: 2,
-    marca: "Xiaomi",
-    modelo: "Redmi Note 10",
-    capacidade_memoria_gb: 128,
-    data_lancamento: "2021-03-04",
-  },
-  {
-    id: 3,
-    marca: "Motorola",
-    modelo: "Moto G Power",
-    capacidade_memoria_gb: 64,
-    data_lancamento: "2020-04-01",
-  },
-];
+import { useListCelular } from "../hooks/useListCelular";
 
 export const Home = () => {
+  const { listCelular } = useListCelular();
+
   return (
     <div className="container mt-5">
       <NavLink to="/create" type="button" className="btn btn-success mb-3">
