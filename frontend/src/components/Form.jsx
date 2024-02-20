@@ -57,6 +57,7 @@ export const Form = ({ type, values, aoSubmit }) => {
                 id="marca"
                 value={marca}
                 onChange={handleChangeMarca}
+                required
               />
             </div>
             <div className="mb-3">
@@ -69,6 +70,7 @@ export const Form = ({ type, values, aoSubmit }) => {
                 id="modelo"
                 value={modelo}
                 onChange={handleChangeModelo}
+                required
               />
             </div>
             <div className="mb-3 col-md-6">
@@ -81,6 +83,8 @@ export const Form = ({ type, values, aoSubmit }) => {
                 id="capacidadeMemoria"
                 value={capacidadeMemoria}
                 onChange={handleChangeCapacidadeMemoria}
+                required
+                min={1}
               />
             </div>
             <div className="mb-3 col-md-6">
@@ -93,6 +97,7 @@ export const Form = ({ type, values, aoSubmit }) => {
                 id="dataLancamento"
                 value={dataLancamento}
                 onChange={handleChangeDataLancamento}
+                required
               />
             </div>
             <div className="d-flex justify-content-between">
