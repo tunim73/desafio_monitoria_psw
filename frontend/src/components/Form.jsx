@@ -1,19 +1,19 @@
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 
-export const Form = ({ tipo, values, aoSubmit }) => {
+export const Form = ({ type, values, aoSubmit }) => {
   const [marca, setMarca] = useState("");
   const [modelo, setModelo] = useState("");
   const [capacidadeMemoria, setCapacidadeMemoria] = useState(0);
   const [dataLancamento, setDataLancamento] = useState("");
 
   useEffect(() => {
-    if (tipo === "create" || !values) return;
+    if (type === "create" || !values) return;
     setMarca(values.marca);
     setModelo(values.modelo);
     setCapacidadeMemoria(values.capacidade_memoria_gb);
     setDataLancamento(values.data_lancamento);
-  }, []);
+  }, [values, type]);
 
   const handleChangeMarca = (event) => setMarca(event.target.value);
   const handleChangeModelo = (event) => setModelo(event.target.value);
@@ -22,7 +22,9 @@ export const Form = ({ tipo, values, aoSubmit }) => {
   const handleChangeDataLancamento = (event) =>
     setDataLancamento(event.target.value);
 
-  const handleSubmit = () => {
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
     const data = {
       marca: marca,
       modelo: modelo,
@@ -30,7 +32,7 @@ export const Form = ({ tipo, values, aoSubmit }) => {
       data_lancamento: dataLancamento,
     };
 
-    if (tipo !== 'create') {
+    if (type !== "create") {
       data.id = values.id;
     }
 
@@ -42,7 +44,7 @@ export const Form = ({ tipo, values, aoSubmit }) => {
       <div className="row justify-content-center">
         <div className="col-md-6">
           <h2 className="text-center mb-4">
-            {tipo === "update" ? "Atualizar Celular" : "Novo Celular "}
+            {type === "update" ? "Atualizar Celular" : "Novo Celular "}
           </h2>
           <form onSubmit={handleSubmit}>
             <div className="mb-3">
@@ -98,7 +100,7 @@ export const Form = ({ tipo, values, aoSubmit }) => {
                 Voltar
               </NavLink>
               <button type="submit" className="btn btn-primary">
-                {tipo === "update" ? "Atualizar" : "Salvar"}
+                {type === "update" ? "Atualizar" : "Salvar"}
               </button>
             </div>
           </form>
