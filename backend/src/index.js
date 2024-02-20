@@ -1,6 +1,7 @@
 import express from "express";
 import bodyParser from "body-parser";
 import { connectDatabase } from "./database/index.js";
+import { celularController } from "./controllers/celular.controller.js";
 
 await connectDatabase();
 
@@ -9,11 +10,9 @@ const PORT = 3000;
 
 app.use(bodyParser.json());
 
-app.get("/", (req, res) => {
-  res.status(200).json({
-    msg: "helloWorld",
-  });
-});
+app
+  .get("/", celularController.test)
+  .post("/celular", celularController.create);
 
 app.listen(PORT, () => {
   console.log(`Running on PORT ${PORT}`);
