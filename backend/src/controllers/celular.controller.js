@@ -86,10 +86,24 @@ const update = async (req, res) => {
   }
 };
 
+const destroy = async (req, res) => {
+  try {
+    const { id } = req.params;
+    await celularService.destroy(id);
+    return res.status(201).json({
+      message: "Deletado com sucesso",
+    });
+  } catch (error) {
+    console.error("error: ", error);
+    res.status(400).json({ error: true, message: error });
+  }
+};
+
 export const celularController = {
   create,
   test,
   findById,
   findAll,
   update,
+  destroy
 };
