@@ -24,12 +24,15 @@ export const Form = ({ tipo, values, aoSubmit }) => {
 
   const handleSubmit = () => {
     const data = {
-      id: values.id,
       marca: marca,
       modelo: modelo,
       capacidade_memoria_gb: capacidadeMemoria,
       data_lancamento: dataLancamento,
     };
+
+    if (tipo !== 'create') {
+      data.id = values.id;
+    }
 
     aoSubmit(data);
   };
