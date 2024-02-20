@@ -30,7 +30,7 @@ export const Home = () => {
                 <td>{item.data_lancamento}</td>
                 <td>
                   <NavLink
-                    to={`/update/${item.id}`}
+                    to={`/update/${item._id}`}
                     type="button"
                     className="btn btn-warning"
                   >
