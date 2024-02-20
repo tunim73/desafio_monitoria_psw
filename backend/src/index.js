@@ -14,7 +14,8 @@ app
   .get("/", celularController.test)
   .post("/celular", celularController.create)
   .get("/celular/:id", celularController.findById)
-  .get("/celulares", celularController.findAll);
+  .get("/celulares", celularController.findAll)
+  .put("/celular/:id", celularController.update);
 
 app.listen(PORT, () => {
   console.log(`Running on PORT ${PORT}`);

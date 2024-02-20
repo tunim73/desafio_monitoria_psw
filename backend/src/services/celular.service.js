@@ -6,8 +6,11 @@ const findById = (id) => Celular.findById({ _id: id });
 
 const findAll = () => Celular.find();
 
+const update = (id, body) => Celular.findOneAndUpdate({ _id: id }, body);
+
 export const celularService = {
   create,
   findById,
   findAll,
+  update,
 };

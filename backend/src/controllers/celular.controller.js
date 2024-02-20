@@ -56,9 +56,40 @@ const findAll = async (_, res) => {
   }
 };
 
+const update = async (req, res) => {
+  try {
+    const { marca, modelo, capacidade_memoria_gb, data_lancamento } = req.body;
+
+    const { id } = req.params;
+
+    if (
+      !marca ||
+      !modelo ||
+      !capacidade_memoria_gb ||
+      !data_lancamento ||
+      !id
+    ) {
+      return res.status(400).json({ message: "Preencha todos os campos!" });
+    }
+
+    const response = await celularService.update(id, {
+      marca,
+      modelo,
+      capacidade_memoria_gb,
+      data_lancamento,
+    });
+
+    return res.status(200).json({ message: "Update", response });
+  } catch (error) {
+    console.error("error: ", error);
+    res.status(400).json({ error: true, message: error });
+  }
+};
+
 export const celularController = {
   create,
   test,
   findById,
   findAll,
+  update,
 };
