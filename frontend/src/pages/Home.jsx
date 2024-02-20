@@ -1,8 +1,9 @@
 import { NavLink } from "react-router-dom";
 import { useListCelular } from "../hooks/useListCelular";
+import { DeleteButton } from "../components";
 
 export const Home = () => {
-  const { listCelular } = useListCelular();
+  const { listCelular, fetcher } = useListCelular();
 
   return (
     <div className="container mt-5">
@@ -38,9 +39,7 @@ export const Home = () => {
                   </NavLink>
                 </td>
                 <td>
-                  <button type="button" className="btn btn-danger">
-                    Excluir
-                  </button>
+                  <DeleteButton id={item._id} fetcher={fetcher} />
                 </td>
               </tr>
             );

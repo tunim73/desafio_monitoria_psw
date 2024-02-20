@@ -16,8 +16,8 @@ export const useListCelular = () => {
 
   useEffect(() => {
     fetcher();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return { listCelular };
+  return { listCelular, fetcher };
 };
