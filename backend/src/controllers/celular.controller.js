@@ -26,7 +26,24 @@ const create = async (req, res) => {
   }
 };
 
+const findById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const Celular = await celularService.findById(id);
+    if (!Celular) {
+      return res.status(400).send({ message: "User não encontrado" });
+    }
+    return res.status(201).json({
+      Celular,
+    });
+  } catch (error) {
+    console.error("error: ", error);
+    res.status(400).json({ error: true, message: error });
+  }
+};
+
 export const celularController = {
   create,
   test,
+  findById
 };

@@ -12,7 +12,8 @@ app.use(bodyParser.json());
 
 app
   .get("/", celularController.test)
-  .post("/celular", celularController.create);
+  .post("/celular", celularController.create)
+  .get("/celular/:id", celularController.findById)
 
 app.listen(PORT, () => {
   console.log(`Running on PORT ${PORT}`);
