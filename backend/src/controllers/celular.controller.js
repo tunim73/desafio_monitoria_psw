@@ -47,10 +47,10 @@ const findAll = async (_, res) => {
     const celulares = await celularService.findAll();
 
     if (celulares.length === 0) {
-      res.status(200).json({ celulares: [] });
+      return res.status(200).json({ celulares: [] });
     }
 
-    res.status(200).json({ celulares: celulares });
+    return res.status(200).json({ celulares: celulares });
   } catch (error) {
     return res.status(500).json(error.message);
   }
@@ -105,5 +105,5 @@ export const celularController = {
   findById,
   findAll,
   update,
-  destroy
+  destroy,
 };
