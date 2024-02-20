@@ -6,7 +6,7 @@ export const Update = () => {
   const navigate = useNavigate();
   const { id } = useParams();
 
-  const [celular, setCelular] = useState([]);
+  const [celular, setCelular] = useState();
 
   useEffect(() => {
     fetch(`http://localhost:3000/celular/${id}`)
