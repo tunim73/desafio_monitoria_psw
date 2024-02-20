@@ -23,7 +23,7 @@ export const Home = () => {
         <tbody>
           {listCelular.map((item) => {
             return (
-              <tr key={item.id}>
+              <tr key={item._id}>
                 <td>{item.marca}</td>
                 <td>{item.modelo}</td>
                 <td>{item.capacidade_memoria_gb}</td>
