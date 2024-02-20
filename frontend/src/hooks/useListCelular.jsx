@@ -1,27 +1,23 @@
+import { useCallback, useEffect, useState } from "react";
+
 export const useListCelular = () => {
-  const listCelular = [
-    {
-      id: 1,
-      marca: "Samsung",
-      modelo: "Galaxy S21",
-      capacidade_memoria_gb: 256,
-      data_lancamento: "2021-01-29",
-    },
-    {
-      id: 2,
-      marca: "Xiaomi",
-      modelo: "Redmi Note 10",
-      capacidade_memoria_gb: 128,
-      data_lancamento: "2021-03-04",
-    },
-    {
-      id: 3,
-      marca: "Motorola",
-      modelo: "Moto G Power",
-      capacidade_memoria_gb: 64,
-      data_lancamento: "2020-04-01",
-    },
-  ];
+  const [listCelular, setListCelular] = useState([]);
+
+  const fetcher = useCallback(() => {
+    fetch("http://localhost:3000/celulares")
+      .then(async (res) => {
+        const data = await res.json();
+        setListCelular(data.celulares);
+      })
+      .catch((error) => {
+        console.error("err: ", error);
+      });
+  }, []);
+
+  useEffect(() => {
+    fetcher();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return { listCelular };
 };
