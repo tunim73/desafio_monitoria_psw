@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
+import { getDate } from "../util/formatDate.js";
 
 export const Form = ({ type, values, aoSubmit }) => {
   const [marca, setMarca] = useState("");
@@ -12,8 +13,9 @@ export const Form = ({ type, values, aoSubmit }) => {
     setMarca(values.marca);
     setModelo(values.modelo);
     setCapacidadeMemoria(values.capacidade_memoria_gb);
-    setDataLancamento(values.data_lancamento);
-  }, [values, type]);
+
+    setDataLancamento(getDate(values.data_lancamento));
+  }, [values, type]); 
 
   const handleChangeMarca = (event) => setMarca(event.target.value);
   const handleChangeModelo = (event) => setModelo(event.target.value);

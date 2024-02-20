@@ -1,6 +1,7 @@
 import { NavLink } from "react-router-dom";
 import { useListCelular } from "../hooks/useListCelular";
 import { DeleteButton } from "../components";
+import { formatDate, getDate } from "../util/formatDate.js";
 
 export const Home = () => {
   const { listCelular, fetcher } = useListCelular();
@@ -28,7 +29,7 @@ export const Home = () => {
                 <td>{item.marca}</td>
                 <td>{item.modelo}</td>
                 <td>{item.capacidade_memoria_gb}</td>
-                <td>{item.data_lancamento}</td>
+                <td>{formatDate(item.data_lancamento)}</td>
                 <td>
                   <NavLink
                     to={`/update/${item._id}`}
