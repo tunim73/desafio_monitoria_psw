@@ -42,17 +42,15 @@ const findById = async (req, res) => {
   }
 };
 
-const findAll = async (req, res) => {
+const findAll = async (_, res) => {
   try {
     const celulares = await celularService.findAll();
 
     if (celulares.length === 0) {
-      return res.status(200).json({
-        message: "Não há registros",
-      });
+      res.status(200).json({ celulares: [] });
     }
 
-    res.status(200).json(celulares);
+    res.status(200).json({ celulares: celulares });
   } catch (error) {
     return res.status(500).json(error.message);
   }
