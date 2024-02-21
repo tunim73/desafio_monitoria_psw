@@ -1,6 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { Form } from "../components";
 import { useEffect, useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
 
 export const Update = () => {
   const navigate = useNavigate();
@@ -31,8 +32,17 @@ export const Update = () => {
     };
 
     try {
-      await fetch(`http://localhost:3000/celular/${id}`, options);
-      navigate(`/update/${id}`);
+      let res = await fetch(`http://localhost:3000/celular/${id}`, options);
+      res = await res.json();
+
+      if (res.status === false && res.message === "duplicate key") {
+        toast.warn("Já existe esse modelo no sistema");
+      } else if (res.status === false) {
+        toast.warn(res.message);
+      } else if (res.status === true) {
+        toast.success("Celular atualizado com sucesso !");
+        navigate(`/update/${id}`);
+      }
     } catch (error) {
       console.error("Error: ", error);
     }
@@ -40,6 +50,7 @@ export const Update = () => {
 
   return (
     <>
+      <ToastContainer />
       <Form type={"update"} values={celular} aoSubmit={updateSubmit} />
     </>
   );
