@@ -1,7 +1,9 @@
 import { useCallback, useEffect, useState } from "react";
+import { useToastStore } from "../store/useStoreToast";
 
 export const useListCelular = () => {
   const [listCelular, setListCelular] = useState([]);
+  const [clear] = useToastStore((state) => [state.clear]);
 
   const fetcher = useCallback(() => {
     fetch("http://localhost:3000/celulares")
@@ -16,8 +18,8 @@ export const useListCelular = () => {
 
   useEffect(() => {
     fetcher();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    clear();
+  }, [clear, fetcher]);
 
   return { listCelular, fetcher };
 };

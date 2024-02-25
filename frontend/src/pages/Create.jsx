@@ -1,9 +1,21 @@
 import { useNavigate } from "react-router-dom";
 import { Form } from "../components";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "../components/ToastContainer";
+import { useToastStore } from "../store/useStoreToast";
+import { useEffect } from "react";
 
 export const Create = () => {
   const navigate = useNavigate();
+  const [success, danger, clear] = useToastStore((state) => [
+    state.success,
+    state.danger,
+    state.clear,
+  ]);
+
+  useEffect(() => {
+    clear();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const createSubmit = async (data, setError) => {
     const options = {
@@ -24,14 +36,14 @@ export const Create = () => {
           message: "Já existe esse modelo no sistema",
         });
       } else if (res.status === false) {
-        toast.warn(res.message);
+        danger(res.message);
       } else if (res.status === true) {
-        toast.success("Celular adicionado com sucesso !");
-        navigate("/");
+        success("Celular adicionado com sucesso !");
+        navigate("/create");
       }
     } catch (error) {
-      toast.error("Problema no servidor");
-      console.error("Error: ", error);
+      danger("Erro na requsição !");
+      console.error("error: ", error);
     }
   };
 

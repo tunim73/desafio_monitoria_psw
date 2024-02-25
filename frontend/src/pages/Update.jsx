@@ -1,7 +1,8 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { Form } from "../components";
 import { useEffect, useState } from "react";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "../components/ToastContainer";
+import { useToastStore } from "../store/useStoreToast";
 
 export const Update = () => {
   const navigate = useNavigate();
@@ -9,7 +10,14 @@ export const Update = () => {
 
   const [celular, setCelular] = useState();
 
+  const [success, danger, clear] = useToastStore((state) => [
+    state.success,
+    state.danger,
+    state.clear,
+  ]);
+
   useEffect(() => {
+    clear();
     fetch(`http://localhost:3000/celular/${id}`)
       .then(async (res) => {
         const data = await res.json();
@@ -41,13 +49,14 @@ export const Update = () => {
           message: "Já existe esse modelo no sistema",
         });
       } else if (res.status === false) {
-        toast.warn(res.message);
+        danger(res.message);
       } else if (res.status === true) {
-        toast.success("Celular atualizado com sucesso !");
+        success("Celular atualizado com sucesso !");
         navigate(`/update/${id}`);
       }
     } catch (error) {
-      console.error("Error: ", error);
+      danger("Erro na requsição !");
+      console.error("error: ", error);
     }
   };
 
