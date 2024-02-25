@@ -6,14 +6,22 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 const schema = yup.object({
-  marca: yup.string().min(2).max(20).required("campo obrigatório"),
-  modelo: yup.string().min(2).max(30).required("campo obrigatório"),
+  marca: yup
+    .string()
+    .min(2, "Digite no mínimo 2 caracteres")
+    .max(20, "Digite no máximo 20 caracteres")
+    .required("Campo obrigatório"),
+  modelo: yup
+    .string()
+    .min(2, "Digite no mínimo 2 caracteres")
+    .max(30, "Digite no máximo 30 caracteres")
+    .required("Campo obrigatório"),
   capacidadeMemoria: yup
-    .number()
-    .required("campo obrigatório")
-    .positive("digite um número positivo")
-    .integer(),
-  dataLancamento: yup.date().required("campo obrigatório").getDate,
+    .number("Campo obrigatório")
+    .required("Campo obrigatório")
+    .positive("Digite um inteiro positivo")
+    .integer("Digite um inteiro positivo"),
+  dataLancamento: yup.string().required("Campo obrigatório"),
 });
 
 export const Form = ({ type, values, aoSubmit }) => {
@@ -28,6 +36,7 @@ export const Form = ({ type, values, aoSubmit }) => {
   });
 
   useEffect(() => {
+    setValue("capacidadeMemoria", 0);
     if (type === "create" || !values) return;
     setValue("marca", values.marca);
     setValue("modelo", values.modelo);
@@ -91,7 +100,6 @@ export const Form = ({ type, values, aoSubmit }) => {
                   className="form-control"
                   id="capacidadeMemoria"
                   {...register("capacidadeMemoria")}
-                  min={1}
                 />
                 {errors.capacidadeMemoria && (
                   <span className="text-danger">
