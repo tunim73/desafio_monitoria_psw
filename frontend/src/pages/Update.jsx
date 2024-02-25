@@ -22,7 +22,7 @@ export const Update = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const updateSubmit = async (data) => {
+  const updateSubmit = async (data, setError) => {
     const options = {
       method: "PUT",
       headers: {
@@ -36,7 +36,10 @@ export const Update = () => {
       res = await res.json();
 
       if (res.status === false && res.message === "duplicate key") {
-        toast.warn("Já existe esse modelo no sistema");
+        setError("modelo", {
+          type: "modeloExiste",
+          message: "Já existe esse modelo no sistema",
+        });
       } else if (res.status === false) {
         toast.warn(res.message);
       } else if (res.status === true) {

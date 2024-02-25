@@ -1,44 +1,49 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { getDate } from "../util/formatDate.js";
+import { useForm } from "react-hook-form";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+
+const schema = yup.object({
+  marca: yup.string().min(2).max(20).required("campo obrigatório"),
+  modelo: yup.string().min(2).max(30).required("campo obrigatório"),
+  capacidadeMemoria: yup
+    .number()
+    .required("campo obrigatório")
+    .positive("digite um número positivo")
+    .integer(),
+  dataLancamento: yup.date().required("campo obrigatório").getDate,
+});
 
 export const Form = ({ type, values, aoSubmit }) => {
-  const [marca, setMarca] = useState("");
-  const [modelo, setModelo] = useState("");
-  const [capacidadeMemoria, setCapacidadeMemoria] = useState(0);
-  const [dataLancamento, setDataLancamento] = useState("");
+  const {
+    handleSubmit,
+    register,
+    setError,
+    formState: { errors },
+    setValue,
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
 
   useEffect(() => {
     if (type === "create" || !values) return;
-    setMarca(values.marca);
-    setModelo(values.modelo);
-    setCapacidadeMemoria(values.capacidade_memoria_gb);
+    setValue("marca", values.marca);
+    setValue("modelo", values.modelo);
+    setValue("capacidadeMemoria", values.capacidade_memoria_gb);
+    setValue("dataLancamento", getDate(values.data_lancamento));
+  }, [values, type, setValue]);
 
-    setDataLancamento(getDate(values.data_lancamento));
-  }, [values, type]); 
-
-  const handleChangeMarca = (event) => setMarca(event.target.value);
-  const handleChangeModelo = (event) => setModelo(event.target.value);
-  const handleChangeCapacidadeMemoria = (event) =>
-    setCapacidadeMemoria(event.target.value);
-  const handleChangeDataLancamento = (event) =>
-    setDataLancamento(event.target.value);
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-
-    const data = {
-      marca: marca,
-      modelo: modelo,
-      capacidade_memoria_gb: capacidadeMemoria,
-      data_lancamento: dataLancamento,
+  const onSubmit = (data) => {
+    const dataForBD = {
+      marca: data.marca,
+      modelo: data.modelo,
+      capacidade_memoria_gb: data.capacidadeMemoria,
+      data_lancamento: data.dataLancamento,
     };
 
-    if (type !== "create") {
-      data.id = values.id;
-    }
-
-    aoSubmit(data);
+    aoSubmit(dataForBD, setError);
   };
 
   return (
@@ -48,7 +53,7 @@ export const Form = ({ type, values, aoSubmit }) => {
           <h2 className="text-center mb-4">
             {type === "update" ? "Atualizar Celular" : "Novo Celular "}
           </h2>
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit(onSubmit)}>
             <div className="mb-3">
               <label htmlFor="marca" className="form-label">
                 Marca:
@@ -57,10 +62,11 @@ export const Form = ({ type, values, aoSubmit }) => {
                 type="text"
                 className="form-control"
                 id="marca"
-                value={marca}
-                onChange={handleChangeMarca}
-                required
+                {...register("marca")}
               />
+              {errors.marca && (
+                <span className="text-danger">{errors.marca.message}</span>
+              )}
             </div>
             <div className="mb-3">
               <label htmlFor="modelo" className="form-label">
@@ -69,11 +75,11 @@ export const Form = ({ type, values, aoSubmit }) => {
               <input
                 type="text"
                 className="form-control"
-                id="modelo"
-                value={modelo}
-                onChange={handleChangeModelo}
-                required
+                {...register("modelo")}
               />
+              {errors.modelo && (
+                <span className="text-danger">{errors.modelo.message}</span>
+              )}
             </div>
             <div className="mb-3 col-md-6">
               <label htmlFor="capacidadeMemoria" className="form-label">
@@ -83,11 +89,14 @@ export const Form = ({ type, values, aoSubmit }) => {
                 type="number"
                 className="form-control"
                 id="capacidadeMemoria"
-                value={capacidadeMemoria}
-                onChange={handleChangeCapacidadeMemoria}
-                required
+                {...register("capacidadeMemoria")}
                 min={1}
               />
+              {errors.capacidadeMemoria && (
+                <span className="text-danger">
+                  {errors.capacidadeMemoria.message}
+                </span>
+              )}
             </div>
             <div className="mb-3 col-md-6">
               <label htmlFor="dataLancamento" className="form-label">
@@ -97,10 +106,13 @@ export const Form = ({ type, values, aoSubmit }) => {
                 type="date"
                 className="form-control"
                 id="dataLancamento"
-                value={dataLancamento}
-                onChange={handleChangeDataLancamento}
-                required
+                {...register("dataLancamento")}
               />
+              {errors.dataLancamento && (
+                <span className="text-danger">
+                  {errors.dataLancamento.message}
+                </span>
+              )}
             </div>
             <div className="d-flex justify-content-between">
               <NavLink to="/" className="btn btn-secondary">
