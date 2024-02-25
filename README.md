@@ -18,6 +18,7 @@
 - Moongoose
 - MongoDB
 - React
+- zustand
 - bootstrap
 
 <h2 id="started">🚀 Inciar o projeto</h2>
@@ -59,8 +60,6 @@ npm run dev
 <h2 id="obs">Observações</h2>
 
 - As tecnologias são as mesmas ensinadas na disciplina;
-
-- Projeto não teve a necessidade de utilizar uma lib para gerênciar estados globais como redux ou zustand.
 
 - Foi utilizado o [MongoDB Atlas](https://www.mongodb.com/pt-br), logo não se faz nessecessário a instação do mongoDB localmente. Como também, futuramente, será retirado as credências de conexão com o banco de dados, caso precise testar o projeto, entre em contato ou dê o seu jeito.
 
