@@ -47,84 +47,86 @@ export const Form = ({ type, values, aoSubmit }) => {
   };
 
   return (
-    <div className="container mt-5">
-      <div className="row justify-content-center">
-        <div className="col-md-6">
-          <h2 className="text-center mb-4">
-            {type === "update" ? "Atualizar Celular" : "Novo Celular "}
-          </h2>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="mb-3">
-              <label htmlFor="marca" className="form-label">
-                Marca:
-              </label>
-              <input
-                type="text"
-                className="form-control"
-                id="marca"
-                {...register("marca")}
-              />
-              {errors.marca && (
-                <span className="text-danger">{errors.marca.message}</span>
-              )}
-            </div>
-            <div className="mb-3">
-              <label htmlFor="modelo" className="form-label">
-                Modelo:
-              </label>
-              <input
-                type="text"
-                className="form-control"
-                {...register("modelo")}
-              />
-              {errors.modelo && (
-                <span className="text-danger">{errors.modelo.message}</span>
-              )}
-            </div>
-            <div className="mb-3 col-md-6">
-              <label htmlFor="capacidadeMemoria" className="form-label">
-                Capacidade de memória (GB):
-              </label>
-              <input
-                type="number"
-                className="form-control"
-                id="capacidadeMemoria"
-                {...register("capacidadeMemoria")}
-                min={1}
-              />
-              {errors.capacidadeMemoria && (
-                <span className="text-danger">
-                  {errors.capacidadeMemoria.message}
-                </span>
-              )}
-            </div>
-            <div className="mb-3 col-md-6">
-              <label htmlFor="dataLancamento" className="form-label">
-                Data de lançamento:
-              </label>
-              <input
-                type="date"
-                className="form-control"
-                id="dataLancamento"
-                {...register("dataLancamento")}
-              />
-              {errors.dataLancamento && (
-                <span className="text-danger">
-                  {errors.dataLancamento.message}
-                </span>
-              )}
-            </div>
-            <div className="d-flex justify-content-between">
-              <NavLink to="/" className="btn btn-secondary">
-                Voltar
-              </NavLink>
-              <button type="submit" className="btn btn-primary">
-                {type === "update" ? "Atualizar" : "Salvar"}
-              </button>
-            </div>
-          </form>
+    <>
+      <div className="container mt-5">
+        <div className="row justify-content-center">
+          <div className="col-md-6">
+            <h2 className="text-center mb-4">
+              {type === "update" ? "Atualizar Celular" : "Novo Celular "}
+            </h2>
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <div className="mb-3">
+                <label htmlFor="marca" className="form-label">
+                  Marca:
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="marca"
+                  {...register("marca")}
+                />
+                {errors.marca && (
+                  <span className="text-danger">{errors.marca.message}</span>
+                )}
+              </div>
+              <div className="mb-3">
+                <label htmlFor="modelo" className="form-label">
+                  Modelo:
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  {...register("modelo")}
+                />
+                {errors.modelo && (
+                  <span className="text-danger">{errors.modelo.message}</span>
+                )}
+              </div>
+              <div className="mb-3 col-md-6">
+                <label htmlFor="capacidadeMemoria" className="form-label">
+                  Capacidade de memória (GB):
+                </label>
+                <input
+                  type="number"
+                  className="form-control"
+                  id="capacidadeMemoria"
+                  {...register("capacidadeMemoria")}
+                  min={1}
+                />
+                {errors.capacidadeMemoria && (
+                  <span className="text-danger">
+                    {errors.capacidadeMemoria.message}
+                  </span>
+                )}
+              </div>
+              <div className="mb-3 col-md-6">
+                <label htmlFor="dataLancamento" className="form-label">
+                  Data de lançamento:
+                </label>
+                <input
+                  type="date"
+                  className="form-control"
+                  id="dataLancamento"
+                  {...register("dataLancamento")}
+                />
+                {errors.dataLancamento && (
+                  <span className="text-danger">
+                    {errors.dataLancamento.message}
+                  </span>
+                )}
+              </div>
+              <div className="d-flex justify-content-between">
+                <NavLink to="/" className="btn btn-secondary">
+                  Voltar
+                </NavLink>
+                <button type="submit" className="btn btn-primary">
+                  {type === "update" ? "Atualizar" : "Salvar"}
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
